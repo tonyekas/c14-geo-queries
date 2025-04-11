@@ -63,3 +63,21 @@ export async function findCommunityBoundaryNear(lat, lon, distanceM) {
     // return equipment
     return []
 }
+
+export async function findCommunitiesInBoundingBox(northLat, eastLon, southLat, westLon){
+    const communities = await CommunityBoundary.find()
+        .where('boundary')
+        .within({ box: [[eastLon, northLat],[westLon, southLat]] });
+    return communities;        
+}
+export async function findCommunitiesWithIntersection(northLat, eastLon, southLat, westLon){
+    const communities = await CommunityBoundary.find()
+        .where('boundary')
+        .intersects()
+        .geometry({
+            type: 'LineString',
+            coordinates: [[eastLon, northLat], [westLon, southLat]]
+        })
+        // .within({ box: [[eastLon, northLat],[westLon, southLat]] });
+    return communities;        
+}
