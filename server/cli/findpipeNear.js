@@ -1,4 +1,4 @@
-import { findPlaygroundEquipmentNear } from "../models/waterPipe.js"
+import { findpipeNear } from "../models/waterPipe.js"
 import { disconnectDb } from "../db.js"
 
 
