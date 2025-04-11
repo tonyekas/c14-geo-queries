@@ -4,11 +4,10 @@ const mongoose = await connectDb();
 
 // Schema 
 const cameralocationSchema = new mongoose.Schema({
-    Camera_Name: String,
-    Camera_URL: String,
-    Quadrant: String,   
-    Camera_Location: String,
-    Point: String,
+    cameraName: String,
+    cameraUrl: String,
+    quadrant: String,   
+    cameraLocation: String,
 })
 
 // cameralocationSchema.index({ location: '2dsphere' })
@@ -17,13 +16,13 @@ const cameralocationSchema = new mongoose.Schema({
 const CameraLocation = mongoose.model('cameralocation', cameralocationSchema, 'cameralocations')
 
 // Functions to expose to the outside world!
-export async function createCameraLocation(Camera_Name, Camera_URL, Quadrant, Camera_Location, Point) {
+export async function createCameraLocation(cameraName, cameraUrl, quadrant, cameraLocation ) {
     const newCameraLocation = await CameraLocation.create({
-        Camera_Name,
-        Camera_URL,
-        Quadrant,   
-        Camera_Location,
-        Point
+        cameraName,
+        cameraUrl,
+        quadrant,   
+        cameraLocation,
+        
     })
     return newCameraLocation
 }
