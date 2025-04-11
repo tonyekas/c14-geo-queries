@@ -6,6 +6,17 @@ const mongoose = await connectDb();
 const playgroundEquipmentSchema = new mongoose.Schema({
     city_asset_cd: String,
     description: String,
+    location: {
+        type: { 
+            type: String,
+            enum: ['Point'],
+            required: true
+        },
+        coordinates: {
+            type: [Number],
+            required: true
+        }
+    }
 })
 
 // Models
