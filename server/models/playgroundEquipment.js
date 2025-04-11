@@ -62,3 +62,10 @@ export async function findPlaygroundEquipmentNear(lat, lon, distanceM) {
         .circle({ center: [lon, lat], radius: distanceDegrees})
     return equipment
 }
+
+export async function findPlaygroundEquipmentInBoundingBox(northLat, eastLon, southLat, westLon) {
+    const equipment = await PlaygroundEquipment.find()
+        .where('location')
+        .within({ box: [[eastLon, northLat],[westLon, southLat]] })
+    return equipment
+}
