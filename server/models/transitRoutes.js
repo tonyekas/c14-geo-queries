@@ -56,5 +56,11 @@ export async function findTransitRouteByRouteShortName(route_short_name) {
 const METERS_PER_DEGREE = 10000000/90 
 
 export async function findTransitRoutesNear(lat, lon, distanceM) {
-    return []
+    const distanceDegrees = distanceM / METERS_PER_DEGREE    
+    const transitRoutes = await TransitRoutes.find()
+        .where('shape.coordinates.$[].$[]')
+        .within()
+        .circle({ center: [lon, lat], radius: distanceDegrees})
+    return transitRoutes
+    
 }
