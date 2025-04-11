@@ -55,5 +55,10 @@ export async function findPlaygroundEquipmentByCityAssetCd(asset_cd) {
 const METERS_PER_DEGREE = 10000000/90 
 
 export async function findPlaygroundEquipmentNear(lat, lon, distanceM) {
-    return []
+    const distanceDegrees = distanceM / METERS_PER_DEGREE    
+    const equipment = await PlaygroundEquipment.find()
+        .where('location')
+        .within()
+        .circle({ center: [lon, lat], radius: distanceDegrees})
+    return equipment
 }
