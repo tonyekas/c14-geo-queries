@@ -38,3 +38,17 @@ export async function findCameraLocationById(id) {
     return location
 }
 
+export async function findCameraLocationByName(cameraNameAsset) {
+    const locations = await CameraLocation.findOne({ cameraName: cameraNameAsset })
+    return locations
+}
+
+// In 1791, the metre was defined as 1 ten millionth the distance
+// between the north pole and the equator travelling through Paris. 
+// 234 years later, Tony used this formula in a sofware development
+// class focused on geographic queries.
+const METERS_PER_DEGREE = 10000000/90 
+
+export async function findCameraLocationNear(lat, lon, distanceM) {
+    return []
+}
