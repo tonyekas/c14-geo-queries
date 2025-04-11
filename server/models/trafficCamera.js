@@ -75,6 +75,9 @@ export async function findCameraLocationByName(cameraNameAsset) {
 const METERS_PER_DEGREE = 10000000 / 90;
 
 export async function findCameraLocationNear(lat, lon, distanceM) {
+  // Convert distance in meters to degrees
+  const distanceDeg = distanceM / METERS_PER_DEGREE;
+
   const locations = await CameraLocation.find({
     point: {
       $near: {
@@ -82,7 +85,7 @@ export async function findCameraLocationNear(lat, lon, distanceM) {
           type: "Point",
           coordinates: [lon, lat],
         },
-        $maxDistance: distanceM,
+        $maxDistance: distanceDeg,
       },
     },
   });
