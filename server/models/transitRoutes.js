@@ -20,7 +20,7 @@ const transitRoutesSchema = new mongoose.Schema({
     }}
 )
 
-transitRoutesSchema.index({ location: '2dsphere' })
+transitRoutesSchema.index({ shape: '2dsphere' })
 
 // Models
 const TransitRoutes = mongoose.model('transitRoutes', transitRoutesSchema, 'transitRoutes')
