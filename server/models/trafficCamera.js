@@ -8,7 +8,7 @@ const cameralocationSchema = new mongoose.Schema({
     cameraName: String,
     quadrant: String,
     cameraLocation: String,
-    point: {
+    location: {
       type: {
         type: String,
         enum: ['Point'],
