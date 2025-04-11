@@ -4,9 +4,10 @@ const mongoose = await connectDb();
 
 // Schema
 const cameralocationSchema = new mongoose.Schema({
-  cameraName: String,
   cameraUrl: String,
+  cameraName: String,
   quadrant: String,
+  cameraLocation: String,
   location: {
     type: {
       type: String,
@@ -34,13 +35,15 @@ export async function createCameraLocation(
   cameraName,
   cameraUrl,
   quadrant,
-  cameraLocation
+  cameraLocation,
+  point
 ) {
   const newCameraLocation = await CameraLocation.create({
     cameraName,
     cameraUrl,
     quadrant,
     cameraLocation,
+    point,
   });
   return newCameraLocation;
 }
@@ -72,5 +75,16 @@ export async function findCameraLocationByName(cameraNameAsset) {
 const METERS_PER_DEGREE = 10000000 / 90;
 
 export async function findCameraLocationNear(lat, lon, distanceM) {
-  return [];
+  const locations = await CameraLocation.find({
+    point: {
+      $near: {
+        $geometry: {
+          type: "Point",
+          coordinates: [lon, lat],
+        },
+        $maxDistance: distanceM,
+      },
+    },
+  });
+  return locations;
 }

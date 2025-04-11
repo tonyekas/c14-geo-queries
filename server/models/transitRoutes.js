@@ -5,17 +5,31 @@ const mongoose = await connectDb();
 // Schema 
 const transitRoutesSchema = new mongoose.Schema({
     route_short_name: String,
-})
+    shape: {
+   
+      
+        type: {
+            type: String,
+            enum: ['MultiLineString'],
+            required: true
+        },
+        coordinates: {
+            type: [[[Number]]],
+            required: true
+        }
+    }}
+)
 
+transitRoutesSchema.index({ location: '2dsphere' })
 
 // Models
 const TransitRoutes = mongoose.model('transitRoutes', transitRoutesSchema, 'transitRoutes')
 
 // Functions to expose to the outside world!
-export async function createTransitRoute(route_short_name, multilinestring) {
+export async function createTransitRoute(route_short_name, shape) {
     const newTransitRoute = await TransitRoutes.create({ 
         route_short_name,
-        multilinestring
+        shape
     })    
     return newTransitRoute
 }
