@@ -69,3 +69,10 @@ export async function findPlaygroundEquipmentInBoundingBox(northLat, eastLon, so
         .within({ box: [[eastLon, northLat],[westLon, southLat]] })
     return equipment
 }
+
+export async function findPlaygroundEquipmentInArea(searchArea) {
+    const equipment = await PlaygroundEquipment.find()
+        .where('location')
+        .within(searchArea)
+    return equipment
+}
