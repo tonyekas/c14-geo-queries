@@ -76,3 +76,9 @@ export async function findTrafficCamerasInBoundingBox(northLat, eastLon, southLa
     return camera
 }
    
+export async function findTrafficCameraInArea(searchArea) {
+    const camera = await CameraLocation.find()
+        .where('point')
+        .within(searchArea)
+    return camera
+}
