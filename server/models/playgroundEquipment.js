@@ -18,6 +18,7 @@ const playgroundEquipmentSchema = new mongoose.Schema({
         }
     }
 })
+playgroundEquipmentSchema.index({ location: '2dsphere' }) 
 
 // Models
 const PlaygroundEquipment = mongoose.model('playgroundEquipment', playgroundEquipmentSchema, 'playgroundEquipment')
