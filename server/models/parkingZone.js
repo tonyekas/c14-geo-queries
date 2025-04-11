@@ -3,19 +3,33 @@ import { connectDb } from "../db.js";
 const mongoose = await connectDb();
 
 const parkingZoneSchema = new mongoose.Schema({
-    addressDesc: String
+    addressDesc: String,
+    line: {
+        type: { 
+            type: String,
+            enum: ['MultiLineString'],
+            required: true
+        },
+        coordinates: {
+            type: [[[Number]]],
+            required: true
+        }
+    }
 })
 
 //Model
 const ParkingZone = mongoose.model('parkingZone', parkingZoneSchema, "parkingZones")
 
 //export default function createParkingZones
-export async function createParkingZone(addressDesc) {
+export async function createParkingZone(addressDesc,line) {
     const newParkingZone = await ParkingZone.create({
-        addressDesc
+        addressDesc,
+        line
     })    
     return newParkingZone
 }
+
+parkingZoneSchema.index({ line: '2dsphere' }) 
 
 export async function findAllParkingZone() {
     const parkingZone = await ParkingZone.find()
