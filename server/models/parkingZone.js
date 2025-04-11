@@ -48,6 +48,20 @@ export async function findParkingZoneByGlobalGuid(globalId) {
     return parkingZone
 }
 
-export async function FindParkingZoneNear(lat, lng,distance) {
-    
+const METERS_PER_DEGREE = 10000000/90 
+
+export async function findParkingZoneNear(lat, lon, distanceM) {
+    const distanceDegrees = distanceM / METERS_PER_DEGREE    
+    const zone = await ParkingZone.find()
+        .where('location')
+        .within()
+        .circle({ center: [lon, lat], radius: distanceDegrees})
+    return zone
+}
+
+export async function findParkingZoneInBoundingBox(northLat, eastLon, southLat, westLon) {
+    const equipment = await ParkingZone.find()
+        .where('location')
+        .within({ box: [[eastLon, northLat],[westLon, southLat]] })
+    return equipment
 }
