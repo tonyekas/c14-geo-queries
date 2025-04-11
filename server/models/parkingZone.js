@@ -21,13 +21,15 @@ const parkingZoneSchema = new mongoose.Schema({
 const ParkingZone = mongoose.model('parkingZone', parkingZoneSchema, "parkingZones")
 
 //export default function createParkingZones
-export async function createParkingZone(addressDesc) {
+export async function createParkingZone(addressDesc,line) {
     const newParkingZone = await ParkingZone.create({
         addressDesc,
         line
     })    
     return newParkingZone
 }
+
+parkingZoneSchema.index({ line: '2dsphere' }) 
 
 export async function findAllParkingZone() {
     const parkingZone = await ParkingZone.find()
