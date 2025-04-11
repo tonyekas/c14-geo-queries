@@ -30,7 +30,7 @@ export async function findCommunityBoundaryById(id) {
     return communityBoundary
 }
 
-export async function findCommunityBoundaryByName(commCode) {
+export async function findCommunityBoundaryByCommCode(commCode) {
     const communityBoundary = await CommunityBoundary.findOne({ commCode: commCode })
     return communityBoundary
 }
