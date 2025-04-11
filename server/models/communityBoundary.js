@@ -6,16 +6,29 @@ const mongoose = await connectDb();
 const communityBoundarySchema = new mongoose.Schema({
     commCode: String,
     name: String,
+    boundary: {
+        type: {
+            type: String,
+            enum: ['MultiPolygon'],
+            required: true
+        },
+        coordinates: {
+            type: [[[[Number]]]],
+            required: true
+        }
+    }
 })
+communityBoundarySchema.index({ location: '2dsphere' })
 
 // Models
 const CommunityBoundary = mongoose.model('communityBoundary', communityBoundarySchema, 'communityBoundary')
 
 // Functions to expose to the outside world!
-export async function createCommunityBoundary(commCode, name) {
+export async function createCommunityBoundary(commCode, name, boundary) {
     const newCommunityBoundary = await CommunityBoundary.create({
         commCode: commCode,
-        name: name
+        name: name,
+        boundary: boundary
     })    
     return newCommunityBoundary
 }
