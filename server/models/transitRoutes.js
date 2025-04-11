@@ -55,6 +55,20 @@ export async function findTransitRouteByRouteShortName(route_short_name) {
 // class focused on geographic queries.
 const METERS_PER_DEGREE = 10000000/90 
 
-export async function findTransitRoutesNear(lat, lon, distanceM) {
-    return []
-}
+    export async function findTransitRoutesNear(lat, lon, distanceM) {
+        const distanceDegrees = distanceM / METERS_PER_DEGREE    
+        const transitRoutes = await TransitRoutes.find()
+            .where('shape')
+            .near({ 
+                center: {
+                    type: 'Point',
+                    coordinates: [lon, lat]
+                },
+                maxDistance: distanceM,
+                spherical: true 
+            })
+            
+        return transitRoutes
+        
+    }
+
