@@ -55,5 +55,11 @@ export async function findCommunityBoundaryByCommCode(commCode) {
 const METERS_PER_DEGREE = 10000000/90 
 
 export async function findCommunityBoundaryNear(lat, lon, distanceM) {
+    // const distanceDegrees = distanceM / METERS_PER_DEGREE
+    // const equipment = await PlaygroundEquipment.find()
+    //     .where('location')
+    //     .within()
+    //     .circle({ center: [lon, lat], radius: distanceDegrees })
+    // return equipment
     return []
 }
