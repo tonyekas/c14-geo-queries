@@ -12,7 +12,7 @@ const transitRoutesSchema = new mongoose.Schema({
 const TransitRoutes = mongoose.model('transitRoutes', transitRoutesSchema, 'transitRoutes')
 
 // Functions to expose to the outside world!
-export async function createtransitRoutes(route_short_name, multilinestring) {
+export async function createTransitRoute(route_short_name, multilinestring) {
     const newTransitRoute = await TransitRoutes.create({ 
         route_short_name,
         multilinestring
