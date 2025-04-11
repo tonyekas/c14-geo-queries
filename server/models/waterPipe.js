@@ -5,20 +5,18 @@ const mongoose = await connectDb();
 // Schema 
 const waterPipeSchema = new mongoose.Schema({
     water_service_address: String,
-    line: MultiLineString,
-    location: {} 
-      Waterserviceaddress: {
-            type: String,
-            enum: ['Point'], // 'location.type' must be 'Point'
-            required: true
-      }
-        },
    
-        "line": {
-            "type": "MultiLineString",
-            "coordinates": 
-                [-113.9657134, 51.1214009],
-                [-113.9655977, 51.1214165]
+    line: {
+        type: {
+            type: String,
+            enum: ['MultiLineString'], // 'line.type' must be 'MultiLineString'
+            required: true
+        },
+        coordinates: {
+            type: [[[Number]]], // Array of arrays of arrays of numbers
+            required: true
+        }
+    }
 })
 
 // Models

@@ -12,14 +12,15 @@ const line = await response.json();
 for (const pipe of line) {
     const { line, water_service_address } = pipe;
 
-    const existinglione = await findWaterPipeByWaterServiceAddress(water_service_address);
+    const existingline = await findWaterPipeByWaterServiceAddress(water_service_address);
     if (existingline) {
         console.log('Updating', buildiwater_service_addressng_type);
         existingline.water_service_address = water_service_address;
-        existingline.lline.save();
+        existingline.line=line;
+        await existingline.save();
     } else {
         console.log('Creating', water_service_address, 'of', line);
-        await createWaterPipe(linee, water_service_address);
+        await createWaterPipe( water_service_address, line);
     }
 }
 await disconnectDb()
