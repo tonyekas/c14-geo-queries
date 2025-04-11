@@ -69,8 +69,10 @@ export async function findCameraLocationNear(lat, lon, distanceM) {
     return locations;
   }
 
-//   export async function findCameraLocationInBoundingBox(northLat, eastLon, southLat, westLon) {
-    
-
-//   }
+export async function findTrafficCamerasInBoundingBox(northLat, eastLon, southLat, westLon) {
+    const camera = await CameraLocation.find()
+        .where('point')
+        .within({ box: [[eastLon, northLat],[westLon, southLat]] })
+    return camera
+}
    
