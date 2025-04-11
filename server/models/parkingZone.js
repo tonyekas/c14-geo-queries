@@ -3,16 +3,16 @@ import { connectDb } from "../db.js";
 const mongoose = await connectDb();
 
 const parkingZoneSchema = new mongoose.Schema({
-    ADDRESS_DESC: String
+    addressDesc: String
 })
 
 //Model
 const ParkingZone = mongoose.model('parkingZone', parkingZoneSchema, parkingZone)
 
 //export default function createParkingZones
-export async function createParkingZones(ADDRESS_DESC) {
+export async function createParkingZones(addressDesc) {
     const newParkingZone = await ParkingZone.create({
-        ADDRESS_DESC
+        addressDesc
     })    
     return newParkingZone
 }
@@ -28,6 +28,6 @@ export async function findParkingZoneById(id) {
 }
 
 export async function findParkingZoneByAddressDesc(address_desc) {
-    const parkingZone = await ParkingZone.findOne({ ADDRESS_DESC:address_desc })
+    const parkingZone = await ParkingZone.findOne({ addressDesc:address_desc })
     return parkingZone
 }
