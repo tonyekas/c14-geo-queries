@@ -7,10 +7,10 @@ const parkingZoneSchema = new mongoose.Schema({
 })
 
 //Model
-const ParkingZone = mongoose.model('parkingZone', parkingZoneSchema, parkingZone)
+const ParkingZone = mongoose.model('parkingZone', parkingZoneSchema, "parkingZones")
 
 //export default function createParkingZones
-export async function createParkingZones(addressDesc) {
+export async function createParkingZone(addressDesc) {
     const newParkingZone = await ParkingZone.create({
         addressDesc
     })    
