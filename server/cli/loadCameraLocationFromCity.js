@@ -9,19 +9,21 @@ if (!response.ok) {
 
 const camera = await response.json()
 for (const piece of camera) {
-    const {description, camera_url, quadrant} = piece
+    const {camera_url, quadrant, camera_location, point} = piece
 
     const existingcamera = await findCameraLocationByName(camera_url.description)
     if (existingcamera) {
         console.log('Updating',camera_url.description)
-        existingcamera.cameraUrl = camera_url.url,
-        existingcamera.cameraName = camera_url.description,
+        existingcamera.cameraUrl = camera_url.url;
+        existingcamera.cameraName = camera_url.description;
         existingcamera.quadrant = quadrant,
+        existingcamera.cameraLocation = camera_location,
+        existingcamera.point = point,
         await existingcamera.save()
     }
     else {
-        console.log('Creating', camera_url.description, 'of', camera_url, 'of', description, 'of', quadrant)
-        await createCameraLocation(camera_url.url, camera_url.description, quadrant)
+        console.log('Creating', camera_url.description, 'record', camera_url.url)
+        await createCameraLocation( camera_url.description, camera_url.url, quadrant, camera_location, point)
     }
 }
 
