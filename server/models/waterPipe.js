@@ -5,17 +5,28 @@ const mongoose = await connectDb();
 // Schema 
 const waterPipeSchema = new mongoose.Schema({
     water_service_address: String,
-    building_type: String,
+   
+    line: {
+        type: {
+            type: String,
+            enum: ['MultiLineString'], // 'line.type' must be 'MultiLineString'
+            required: true
+        },
+        coordinates: {
+            type: [[[Number]]], // Array of arrays of arrays of numbers
+            required: true
+        }
+    }
 })
 
 // Models
 const WaterPipe = mongoose.model('waterPipe', waterPipeSchema, 'waterPipes')
 
 // Functions to expose to the outside world!
-export async function createWaterPipe(water_service_address, building_type) {
+export async function createWaterPipe(water_service_address, line) {
     const newWaterPipe = await WaterPipe.create({
         water_service_address,
-        building_type
+        line,
     })    
     return newWaterPipe
 }

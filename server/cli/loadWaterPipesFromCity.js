@@ -8,19 +8,19 @@ if (!response.ok) {
     process.exit()
 }
 
-const buildingTypes = await response.json();
-for (const pipe of buildingTypes) {
-    const { building_type, water_service_address } = pipe;
+const line = await response.json();
+for (const pipe of line) {
+    const { line, water_service_address } = pipe;
 
-    const existingBuildingType = await findWaterPipeByWaterServiceAddress(water_service_address);
-    if (existingBuildingType) {
+    const existingline = await findWaterPipeByWaterServiceAddress(water_service_address);
+    if (existingline) {
         console.log('Updating', buildiwater_service_addressng_type);
-        existingBuildingType.water_service_address = water_service_address;
-        existingBuildingType.building_type = building_type;
-        await existingBuildingType.save();
+        existingline.water_service_address = water_service_address;
+        existingline.line=line;
+        await existingline.save();
     } else {
-        console.log('Creating', water_service_address, 'of', building_type);
-        await createWaterPipe(building_type, water_service_address);
+        console.log('Creating', water_service_address, 'of', line);
+        await createWaterPipe( water_service_address, line);
     }
 }
 await disconnectDb()

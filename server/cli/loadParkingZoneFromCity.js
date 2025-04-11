@@ -10,17 +10,18 @@ if (!response.ok) {
 
 const zone = await response.json()
 for (const piece of zone) {
-    const {address_desc} = piece
+    const {address_desc,the_geom,globalid_guid} = piece
 
     const existingZone = await findParkingZoneByAddressDesc(address_desc)
     if (existingZone) {
         console.log('Finding',address_desc)
-        existingZone.address_description = address_desc
+        existingZone.globalid = globalid_guid
+        existingZone.line = the_geom
         await existingZone.save()
     }
     else {
-        console.log('Creating', address_desc)
-        await createParkingZone(address_desc)
+        console.log('Creating', address_desc, 'of' , the_geom, 'with', globalid_guid)
+        await createParkingZone(address_desc,the_geom,globalid_guid)
     }
 }
 
