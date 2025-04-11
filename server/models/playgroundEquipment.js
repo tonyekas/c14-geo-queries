@@ -6,16 +6,29 @@ const mongoose = await connectDb();
 const playgroundEquipmentSchema = new mongoose.Schema({
     city_asset_cd: String,
     description: String,
+    location: {
+        type: { 
+            type: String,
+            enum: ['Point'],
+            required: true
+        },
+        coordinates: {
+            type: [Number],
+            required: true
+        }
+    }
 })
+playgroundEquipmentSchema.index({ location: '2dsphere' }) 
 
 // Models
 const PlaygroundEquipment = mongoose.model('playgroundEquipment', playgroundEquipmentSchema, 'playgroundEquipment')
 
 // Functions to expose to the outside world!
-export async function createPlaygroundEquipment(city_asset_cd, description) {
+export async function createPlaygroundEquipment(city_asset_cd, description, location) {
     const newPlaygroundEquipment = await PlaygroundEquipment.create({
         city_asset_cd,
-        description
+        description,
+        location
     })    
     return newPlaygroundEquipment
 }
