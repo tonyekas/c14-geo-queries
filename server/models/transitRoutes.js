@@ -5,10 +5,8 @@ const mongoose = await connectDb();
 // Schema 
 const transitRoutesSchema = new mongoose.Schema({
     route_short_name: String,
-    multilinestring: String,
 })
 
-transitRoutesSchema.index({ location: '2dsphere' })
 
 // Models
 const TransitRoutes = mongoose.model('transitRoutes', transitRoutesSchema, 'transitRoutes')
