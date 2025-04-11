@@ -4,7 +4,7 @@ const mongoose = await connectDb();
 
 // Schema 
 const communityBoundarySchema = new mongoose.Schema({
-    comm_code: String,
+    commCode: String,
     name: String,
 })
 
@@ -12,9 +12,9 @@ const communityBoundarySchema = new mongoose.Schema({
 const CommunityBoundary = mongoose.model('communityBoundary', communityBoundarySchema, 'communityBoundary')
 
 // Functions to expose to the outside world!
-export async function createCommunityBoundary(comm_code, name) {
+export async function createCommunityBoundary(commCode, name) {
     const newCommunityBoundary = await CommunityBoundary.create({
-        comm_code: comm_code,
+        commCode: commCode,
         name: name
     })    
     return newCommunityBoundary
@@ -30,8 +30,8 @@ export async function findCommunityBoundaryById(id) {
     return communityBoundary
 }
 
-export async function findCommunityBoundaryByName(comm_code) {
-    const communityBoundary = await CommunityBoundary.findOne({ comm_code: comm_code })
+export async function findCommunityBoundaryByName(commCode) {
+    const communityBoundary = await CommunityBoundary.findOne({ commCode: commCode })
     return communityBoundary
 }
 
