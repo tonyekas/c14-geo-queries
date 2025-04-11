@@ -9,10 +9,10 @@ const waterPipeSchema = new mongoose.Schema({
 })
 
 // Models
-const waterPipe = mongoose.model('waterPipe', waterPipeSchema, 'waterPipes')
+const WaterPipe = mongoose.model('waterPipe', waterPipeSchema, 'waterPipes')
 
 // Functions to expose to the outside world!
-export async function createwaterPipe(water_service_address, building_type) {
+export async function createWaterPipe(water_service_address, building_type) {
     const newWaterPipe = await WaterPipe.create({
         water_service_address,
         building_type
