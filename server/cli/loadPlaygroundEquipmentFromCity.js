@@ -9,17 +9,18 @@ if (!response.ok) {
 
 const equipment = await response.json()
 for (const piece of equipment) {
-    const {asset_cd, type_description} = piece
+    const {asset_cd, type_description, point} = piece
 
     const existingEquipment = await findPlaygroundEquipmentByCityAssetCd(asset_cd)
     if (existingEquipment) {
         console.log('Updating',asset_cd)
         existingEquipment.description = type_description
+        existingEquipment.location = point
         await existingEquipment.save()
     }
     else {
         console.log('Creating', asset_cd, 'of', type_description)
-        await createPlaygroundEquipment(asset_cd, type_description)
+        await createPlaygroundEquipment(asset_cd, type_description, point)
     }
 }
 

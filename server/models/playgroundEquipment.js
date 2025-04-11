@@ -23,10 +23,11 @@ const playgroundEquipmentSchema = new mongoose.Schema({
 const PlaygroundEquipment = mongoose.model('playgroundEquipment', playgroundEquipmentSchema, 'playgroundEquipment')
 
 // Functions to expose to the outside world!
-export async function createPlaygroundEquipment(city_asset_cd, description) {
+export async function createPlaygroundEquipment(city_asset_cd, description, location) {
     const newPlaygroundEquipment = await PlaygroundEquipment.create({
         city_asset_cd,
-        description
+        description,
+        location
     })    
     return newPlaygroundEquipment
 }
