@@ -18,6 +18,7 @@ const communityBoundarySchema = new mongoose.Schema({
         }
     }
 })
+communityBoundarySchema.index({ location: '2dsphere' })
 
 // Models
 const CommunityBoundary = mongoose.model('communityBoundary', communityBoundarySchema, 'communityBoundary')
