@@ -9,17 +9,18 @@ if (!response.ok) {
 
 const communityBoundaries = await response.json()
 for (const community of communityBoundaries) {
-    const {comm_code, name} = community
+    const {comm_code, name, multipolygon} = community
 
     const existingCommunityBoundary = await findCommunityBoundaryByCommCode(comm_code) 
     if (existingCommunityBoundary) {
         console.log('Updating',comm_code)
         existingCommunityBoundary.name = name
+        existingCommunityBoundary.boundary = multipolygon
         await existingCommunityBoundary.save()
     }
     else {
         console.log('Creating', comm_code, 'of', name)
-        await createCommunityBoundary(comm_code, name)
+        await createCommunityBoundary(comm_code, name, multipolygon)
     }
 }
 
